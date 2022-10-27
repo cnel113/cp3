@@ -1,21 +1,32 @@
-import './App.css';
 import React from "react";
 import ReactDOM from "react-dom";
-import ColorForm from "./ColorForm.js"
 
-function App() {
+class ColorForm extends React.Component {
+        constructor(props) { //ask what props is
+            super(props); //ask what super is
+            this.state = {
+                hue: "Random", //make into a list of the color options
+                number: 1,
+                light: false,
+                dark: false,
+                hexColor: "#E2A2CC"
+            };
+            
+            this.handleInput = this.handleInput.bind(this);
+            //this.handleSubmit = this.handleSubmit.bind(this);
+        }
+        
+        handleInput(event) {
+            this.setState({hue: event.target.value}); //How do I set it based on the value if I don't know what was inputed?
+        }
+        
     
-    return (<div> <ColorForm/> </div>);
-    
-}
-
-//const root = ReactDOM.createRoot(document.getElementById('root'));
-//root.render(<colorForm />);
-
-export default App;
-
-         
-                /*<div class = "page">
+        render () { //How do I dynamically render in here? 
+        
+            //define an element with the properties, map over list of colors to create your color elements.
+            //START with the HTML, the HTML and its functions are what calls the functions built out above.
+            return (
+                <div class = "page">
                     <h1>Find the Perfect Pallete</h1>
                     <div class="color-search">
                         <legend>Get a random color, or specify the hue, amount, and whether 
@@ -80,35 +91,7 @@ export default App;
                   </div>
                 </div>
             </div> 
-        */
-        
-        /*handleSubmit(event) {
-            event.preventDefault();
-            var url = "https://x-colors.herokuapp.com/api/random";
-            if (this.state.hue != "Random") {
-                url += "/" + selectedHue;
-            }
-            else {
-                url += "/all";
-            }
-            url += "?number=" + numColors;
-            
-            if (this.state.light === true && this.state.dark === false) {
-                url += "&type=light";
-            }
-            else if (this.state.light === false && this.state.dark === true) {
-                url += "&type=dark";
-            }
-        
-            fetch(url) 
-                .then((data) => {
-                    return (data.json());
-                })
-                .then((colorData) => {
-                    console.log(colorData);
-                    this.setState({hexColor: json.hex}); 
-                    //The tricky thing for me is that the API just returns the color for the item with a hex color, 
-                    //rgb color, and hsl color. The intricacy of the app comes from generating multiple colors and 
-                    // handling the conditions of hue, amount, and light or dark
-            });
-            */
+            );
+        }
+    }
+export default ColorForm;
