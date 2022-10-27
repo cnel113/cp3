@@ -9,33 +9,103 @@ class ColorForm extends React.Component {
                 number: 1,
                 light: false,
                 dark: false,
-                hexColor: "#E2A2CC"
+                hexColor: "#E2A2CC",
+                colors: [{hex: "#E2A2CC", rgb:  "rgb(226, 162, 204)", hsl: 'hsl(321, 52%, 76%)'}]
             };
             
             this.handleInput = this.handleInput.bind(this);
-            //this.handleSubmit = this.handleSubmit.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+            this.handleColorSelection = this.handleColorSelection.bind(this);
+            this.handleNumSelection = this.handleNumSelection.bind(this);
+            this.handleLightSelection = this.handleLightSelection.bind(this);
+            this.handleDarkSelection = this.handleDarkSelection.bind(this);
         }
         
         handleInput(event) {
-            this.setState({hue: event.target.value}); //How do I set it based on the value if I don't know what was inputed?
+            this.setState({hue: event.target.value});
         }
         
+        handleColorSelection(event) {
+            this.setState({hue:event.target.value});
+        }
+        
+        handleNumSelection(event) {
+            this.setState({number: event.target.value});
+        }
+        
+        handleLightSelection(event) {
+            if (this.state.light == false) {
+                this.setState({light: true});
+            }
+            else {
+                this.setState({light: false});
+            }
+        }
+        
+        handleDarkSelection(event){
+            if (this.state.dark == false) {
+                this.setState({dark: true});
+            }
+            else {
+                this.setState({dark: false});
+            }
+        }
+        
+        
+        handleSubmit(event) {
+            event.preventDefault();
+            var url = "https://x-colors.herokuapp.com/api/random";
+            if (this.state.hue !== "Random") {
+                url += "/" + this.state.hue;
+            }
+            else {
+                url += "/all";
+            }
+            url += "?number=" + this.state.number;
+            
+            if (this.state.light === true && this.state.dark === false) {
+                url += "&type=light";
+            }
+            else if (this.state.light === false && this.state.dark === true) {
+                url += "&type=dark";
+            }
+        
+            fetch(url) 
+                .then((data) => {
+                    return (data.json());
+                })
+                .then((colorData) => {
+                    console.log(colorData);
+                    this.setState({colors: colorData}); 
+            });
+       }
     
-        render () { //How do I dynamically render in here? 
+        
+    
+        render () {
         
             //define an element with the properties, map over list of colors to create your color elements.
             //START with the HTML, the HTML and its functions are what calls the functions built out above.
+            console.log("Render Array");
+            console.log( this.state.colors);
+            const colorBlocks = this.state.colors.map((color) =>
+        
+                <li key={color.hex}>{color.hex}</li>
+            );
+            
             return (
+                
+                
                 <div class = "page">
                     <h1>Find the Perfect Pallete</h1>
-                    <div class="color-search">
+                    <form class="color-search" onSubmit={this.handleSubmit}>
                         <legend>Get a random color, or specify the hue, amount, and whether 
                         you want light or dark color(s)</legend>
                     
                         <div class="search-fields">
                             <div class="hue-button">
                               <label>Select a Hue</label>
-                              <select id="hue-selector">
+                              <select id="hue-selector" onChange={this.handleColorSelection}>
                                 <option value="random">Random</option>
                                 <option value="red">Red</option>
                                 <option value="pink">Pink</option>
@@ -53,7 +123,7 @@ class ColorForm extends React.Component {
                         <div class='num-type'>
                           <div class='title-enter'>
                             <label>Number</label>
-                            <select id="amount-selector">
+                            <select id="amount-selector" onChange={this.handleNumSelection}>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -81,13 +151,14 @@ class ColorForm extends React.Component {
                           </div>
                         </div>
                     </div>
-                </div>
+                </form>
           
             
                 <div id="colorResults">
                   <div class='color-chip'>
                     <div class='color-block' id='block-1'></div>
-                    <p>#E2A2CC</p>
+                    <p>{this.state.hexColor}</p>
+                    <ul>{colorBlocks}</ul>
                   </div>
                 </div>
             </div> 
