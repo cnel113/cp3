@@ -80,22 +80,25 @@ class ColorForm extends React.Component {
             });
        }
     
-        
-    
         render () {
         
             //define an element with the properties, map over list of colors to create your color elements.
             //START with the HTML, the HTML and its functions are what calls the functions built out above.
             console.log("Render Array");
             console.log( this.state.colors);
-            const colorBlocks = this.state.colors.map((color) =>
-        
-                <li key={color.hex}>{color.hex}</li>
-            );
+            
+            var colorBlocks = "";
+            if (this.state.number < 2) {
+                colorBlocks = <li key={this.state.colors.hex}></li>
+            }
+            else {
+                colorBlocks = this.state.colors.map((color) =>
+            
+                    <li key={color.hex}>{color.hex}</li>
+                );
+            }
             
             return (
-                
-                
                 <div class = "page">
                     <h1>Find the Perfect Pallete</h1>
                     <form class="color-search" onSubmit={this.handleSubmit}>
@@ -157,7 +160,6 @@ class ColorForm extends React.Component {
                 <div id="colorResults">
                   <div class='color-chip'>
                     <div class='color-block' id='block-1'></div>
-                    <p>{this.state.hexColor}</p>
                     <ul>{colorBlocks}</ul>
                   </div>
                 </div>
