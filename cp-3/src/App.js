@@ -4,7 +4,9 @@ import ReactDOM from "react-dom";
 
 function App() {
     
-    class colorForm extends React.Component {
+    return (<p>Hello World </p>);
+    
+    /*class ColorForm extends React.Component {
         constructor(props) { //ask what props is
             super(props); //ask what super is
             this.state = {
@@ -19,11 +21,97 @@ function App() {
             this.handleSubmit = this.handleSubmit.bind(this);
         }
         
-        handleInput(event) { //How does it know which "event" is which? I have different buttons and different values to changes
+        handleInput(event) {
             this.setState({hue: event.target.value}); //How do I set it based on the value if I don't know what was inputed?
         }
         
-        handleSubmit(event) {
+    
+        render () { //How do I dynamically render in here? 
+        
+            //define an element with the properties, map over list of colors to create your color elements.
+            //START with the HTML, the HTML and its functions are what calls the functions built out above.
+            return (<p>Hello World</p>);
+        }
+    }
+    */
+}
+
+    
+
+//const root = ReactDOM.createRoot(document.getElementById('root'));
+//root.render(<colorForm />);
+
+export default App;
+
+         
+                /*<div class = "page">
+                    <h1>Find the Perfect Pallete</h1>
+                    <div class="color-search">
+                        <legend>Get a random color, or specify the hue, amount, and whether 
+                        you want light or dark color(s)</legend>
+                    
+                        <div class="search-fields">
+                            <div class="hue-button">
+                              <label>Select a Hue</label>
+                              <select id="hue-selector">
+                                <option value="random">Random</option>
+                                <option value="red">Red</option>
+                                <option value="pink">Pink</option>
+                                <option value="purple">Purple</option>
+                                <option value="navy">Navy</option>
+                                <option value="blue">Blue</option>
+                                <option value="aqua">Aqua</option>
+                                <option value="green">Green</option>
+                                <option value="lime">Lime</option>
+                                <option value="yellow">Yellow</option>
+                                <option value="orange">Orange</option>
+                              </select> 
+                              <input id="submitButton" type="submit" value="Get Colors" class='button'></input>
+                           </div>
+                        <div class='num-type'>
+                          <div class='title-enter'>
+                            <label>Number</label>
+                            <select id="amount-selector">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                            </select>
+                          </div>
+                          <div class='title-enter'>
+                            <label>Light</label>
+                            <input type="checkbox" id="light"></input>
+                          </div>
+                          <div class='title-enter'>
+                            <label>Dark</label>
+                            <input type="checkbox" id="dark"></input>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+          
+            
+                <div id="colorResults">
+                  <div class='color-chip'>
+                    <div class='color-block' id='block-1'></div>
+                    <p>#E2A2CC</p>
+                  </div>
+                </div>
+            </div> 
+        */
+        
+        /*handleSubmit(event) {
             event.preventDefault();
             var url = "https://x-colors.herokuapp.com/api/random";
             if (this.state.hue != "Random") {
@@ -51,114 +139,5 @@ function App() {
                     //The tricky thing for me is that the API just returns the color for the item with a hex color, 
                     //rgb color, and hsl color. The intricacy of the app comes from generating multiple colors and 
                     // handling the conditions of hue, amount, and light or dark
-                    
             });
-            
-        }
-    }
-        
-        // Do I have to set npm start and npm run build to test the page? 
-        //or is it best to wait on those until I have a good working application?
-        //What are the differences between React and React CLI? 
-        //is it just that you can build the app and set start/run commands? 
-        //It seems like the syntax is different
-    }
-    
-    render () { //How do I dynamically render in here? 
-    
-        //define an element with the properties, map over list of colors to create your color elements.
-    
-        return ( //START with the HTML, the HTML and its functions are what calls the functions built out above. 
-            
-            for (let i = 0; i < numColors; i++){ //Get you use a loop in a render statement?
-                let color = ""
-                if (numColors === "1") {
-                    color = json.hex;
-                }
-                else {
-                    color = json[i].hex;
-                }
-                let chip = document.createElement('div'); 
-                //One of the main benefits of React CLI is that you can just return direct
-                // html elements right? just <div> <h1>Hello World</h1> </div>
-                chip.classList.add('color-chip');
-                let el = document.createElement('div');
-                el.classList.add('color-block');
-                el.style.backgroundColor = color;
-                chip.appendChild(el);
-                let text = document.createElement('p');
-                text.innerHTML = color;
-                chip.appendChild(text);
-                box.appendChild(chip);
-                
-                
-            }
-        )
-    }
-    
-    
-    
-    
- /* document.getElementById("submitButton").addEventListener("click", function(event) {
-    event.preventDefault();
-    let colorField = document.getElementById('hue-selector');
-    let selectedHue = colorField.options[colorField.selectedIndex].value;
-    let amountField = document.getElementById('amount-selector');
-    let numColors = amountField.options[amountField.selectedIndex].value;
-    let light = document.getElementById('light').checked;
-    let dark = document.getElementById('dark').checked;
-    
-    const box = document.getElementById('colorResults');
-    box.innerHTML = ""; 
-    
-    let url ="https://x-colors.herokuapp.com/api/random";
-    
-    if (selectedHue != "random") {
-        url += "/" + selectedHue;
-    }
-    else {
-        url += "/all";
-    }
-    url += "?number=" + numColors;
-    
-    if (light === true && dark === false) {
-        url += "&type=light";
-    }
-    else if (light === false && dark === true) {
-        url += "&type=dark";
-    }
-    
-    fetch(url) 
-    .then(function(response) {
-        return response.json();
-    }).then(function(json) {
-        console.log(json);
-            for (let i = 0; i < numColors; i++){
-                let color = ""
-                if (numColors === "1") {
-                    color = json.hex;
-                }
-                else {
-                    color = json[i].hex;
-                }
-                let chip = document.createElement('div');
-                chip.classList.add('color-chip');
-                let el = document.createElement('div');
-                el.classList.add('color-block');
-                el.style.backgroundColor = color;
-                chip.appendChild(el);
-                let text = document.createElement('p');
-                text.innerHTML = color;
-                chip.appendChild(text);
-                box.appendChild(chip);
-            }
-        });
-            
-      
-  }); */
-}
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render (<colorForm />);
-
-export default App;
+            */

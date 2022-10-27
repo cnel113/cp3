@@ -43,6 +43,10 @@
     box-sizing: border-box;
 }
 
+.root {
+    height: 500px; /* REMOVE LATER*/
+}
+
 h1, h2, h3 {
     color: #35B6D0; /*teal*/
     font-family: georgia serif;
