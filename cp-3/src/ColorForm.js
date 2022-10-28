@@ -87,26 +87,40 @@ class ColorForm extends React.Component {
             console.log("Render Array");
             console.log( this.state.colors);
             
+            var background = {backgroundColor: this.state.colors.hex};
             var colorBlocks = "";
             if (this.state.number < 2) {
-                colorBlocks = <li key={this.state.colors.hex}></li>
+                ////style{{backgroundColor:this.state.colors.hex}}
+                colorBlocks = 
+                <div className='color-chip'> 
+                    <div className='color-block' style={background}></div> 
+                    <p>{this.state.colors.hex}</p>
+                </div>
+                /* 
+                el.style.backgroundColor = color;
+                */
             }
             else {
                 colorBlocks = this.state.colors.map((color) =>
-            
-                    <li key={color.hex}>{color.hex}</li>
+                    //<li key={color.hex}>{color.hex}</li>
+                     { 
+                     background = {backgroundColor: color.hex};
+                     return (<div className='color-chip'> 
+                        <div className='color-block' style={background}></div>
+                        <p>{color.hex}</p>
+                    </div>)}
                 );
             }
             
             return (
-                <div class = "page">
+                <div className = "page">
                     <h1>Find the Perfect Pallete</h1>
-                    <form class="color-search" onSubmit={this.handleSubmit}>
+                    <form className="color-search" onSubmit={this.handleSubmit}>
                         <legend>Get a random color, or specify the hue, amount, and whether 
                         you want light or dark color(s)</legend>
                     
-                        <div class="search-fields">
-                            <div class="hue-button">
+                        <div className="search-fields">
+                            <div className="hue-button">
                               <label>Select a Hue</label>
                               <select id="hue-selector" onChange={this.handleColorSelection}>
                                 <option value="random">Random</option>
@@ -121,10 +135,10 @@ class ColorForm extends React.Component {
                                 <option value="yellow">Yellow</option>
                                 <option value="orange">Orange</option>
                               </select> 
-                              <input id="submitButton" type="submit" value="Get Colors" class='button'></input>
+                              <input id="submitButton" type="submit" value="Get Colors" className='button'></input>
                            </div>
-                        <div class='num-type'>
-                          <div class='title-enter'>
+                        <div className='num-type'>
+                          <div className='title-enter'>
                             <label>Number</label>
                             <select id="amount-selector" onChange={this.handleNumSelection}>
                               <option value="1">1</option>
@@ -144,11 +158,11 @@ class ColorForm extends React.Component {
                               <option value="15">15</option>
                             </select>
                           </div>
-                          <div class='title-enter'>
+                          <div className='title-enter'>
                             <label>Light</label>
                             <input type="checkbox" id="light"></input>
                           </div>
-                          <div class='title-enter'>
+                          <div className='title-enter'>
                             <label>Dark</label>
                             <input type="checkbox" id="dark"></input>
                           </div>
@@ -158,10 +172,7 @@ class ColorForm extends React.Component {
           
             
                 <div id="colorResults">
-                  <div class='color-chip'>
-                    <div class='color-block' id='block-1'></div>
-                    <ul>{colorBlocks}</ul>
-                  </div>
+                {colorBlocks}
                 </div>
             </div> 
             );

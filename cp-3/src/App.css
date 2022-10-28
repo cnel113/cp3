@@ -183,6 +183,11 @@ select {
   background-color: #E2A2CC;
 }
 
+:root {
+  --random-color: blueviolet;
+}
+
+
 .color-chip {
     display: flex;
     flex-direction: column;
