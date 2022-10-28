@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 class ColorForm extends React.Component {
-        constructor(props) { //ask what props is
-            super(props); //ask what super is
+        constructor(props) { 
+            super(props); 
             this.state = {
-                hue: "Random", //make into a list of the color options
+                hue: "Random",
                 number: 1,
                 light: false,
                 dark: false,
@@ -34,21 +34,11 @@ class ColorForm extends React.Component {
         }
         
         handleLightSelection(event) {
-            if (this.state.light == false) {
-                this.setState({light: true});
-            }
-            else {
-                this.setState({light: false});
-            }
+            this.setState({light: event.target.checked});
         }
         
         handleDarkSelection(event){
-            if (this.state.dark == false) {
-                this.setState({dark: true});
-            }
-            else {
-                this.setState({dark: false});
-            }
+            this.setState({dark: event.target.checked});
         }
         
         
@@ -81,28 +71,22 @@ class ColorForm extends React.Component {
        }
     
         render () {
-        
-            //define an element with the properties, map over list of colors to create your color elements.
-            //START with the HTML, the HTML and its functions are what calls the functions built out above.
             console.log("Render Array");
             console.log( this.state.colors);
             
             var background = {backgroundColor: this.state.colors.hex};
             var colorBlocks = "";
-            if (this.state.number < 2) {
+            if (this.state.colors.length < 2) {
                 ////style{{backgroundColor:this.state.colors.hex}}
                 colorBlocks = 
                 <div className='color-chip'> 
                     <div className='color-block' style={background}></div> 
                     <p>{this.state.colors.hex}</p>
                 </div>
-                /* 
-                el.style.backgroundColor = color;
-                */
+
             }
             else {
                 colorBlocks = this.state.colors.map((color) =>
-                    //<li key={color.hex}>{color.hex}</li>
                      { 
                      background = {backgroundColor: color.hex};
                      return (<div className='color-chip'> 
@@ -160,11 +144,11 @@ class ColorForm extends React.Component {
                           </div>
                           <div className='title-enter'>
                             <label>Light</label>
-                            <input type="checkbox" id="light"></input>
+                            <input type="checkbox" id="light" onClick={this.handleLightSelection}></input>
                           </div>
                           <div className='title-enter'>
                             <label>Dark</label>
-                            <input type="checkbox" id="dark"></input>
+                            <input type="checkbox" id="dark" onClick={this.handleDarkSelection}></input>
                           </div>
                         </div>
                     </div>
