@@ -76,10 +76,11 @@ class ColorForm extends React.Component {
             
             var background = {backgroundColor: this.state.colors.hex};
             var colorBlocks = "";
-            if (this.state.colors.length < 2) {
+            console.log("colors type" + typeof(this.state.colors));
+            if (!this.state.colors.hasOwnProperty('length')) {
                 ////style{{backgroundColor:this.state.colors.hex}}
                 colorBlocks = 
-                <div className='color-chip'> 
+                <div className='color-chip'> s
                     <div className='color-block' style={background}></div> 
                     <p>{this.state.colors.hex}</p>
                 </div>
